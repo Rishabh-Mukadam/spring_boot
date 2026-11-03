@@ -13,6 +13,8 @@ import java.util.UUID;
 public class LoggingFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+
+        long startTime=System.currentTimeMillis();
         System.out.println("request has been received");
         HttpServletRequest httpServletRequest=(HttpServletRequest) request;
 
@@ -20,6 +22,10 @@ public class LoggingFilter implements Filter {
         HttpServletResponse httpServletResponse=(HttpServletResponse) response;
         chain.doFilter(request,response);
         httpServletResponse.setHeader("request_id",request_id);
+
+        long duration=System.currentTimeMillis()-startTime;
+
+        System.out.println("Total time required: "+ duration);
 
     }
 }
