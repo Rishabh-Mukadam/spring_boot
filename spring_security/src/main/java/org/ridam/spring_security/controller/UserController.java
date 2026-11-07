@@ -1,7 +1,9 @@
 package org.ridam.spring_security.controller;
 
+import org.aspectj.apache.bcel.classfile.Module;
 import org.ridam.spring_security.dto.UserRegisterReqDto;
 import org.ridam.spring_security.dto.UserRegisterResDto;
+import org.ridam.spring_security.entity.Users;
 import org.ridam.spring_security.service.AuthService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,6 +26,11 @@ public class UserController {
         System.out.println(userRegisterReqDto.getPassword());
         System.out.println(userRegisterReqDto.getUsername());
       return authService.register(userRegisterReqDto);
+    }
+
+    @PostMapping("/login")
+    public boolean login(@RequestBody Users user){
+        return authService.login(user);
     }
 
     @GetMapping("/getCSRF")

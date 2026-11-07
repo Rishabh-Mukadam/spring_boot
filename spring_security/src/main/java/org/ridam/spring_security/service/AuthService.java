@@ -10,6 +10,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class AuthService {
     UserRepository userRepository;
@@ -32,5 +34,10 @@ public class AuthService {
         userRegisterResDto.setUsername(savedUser.getUsername());
 
         return userRegisterResDto;
+    }
+
+    public boolean login(Users user) {
+        Optional<Users> found_user=userRepository.findByUsername(user.getUsername());
+        return encoder.matches(user.getPassword(),found_user.get().getPassword());
     }
 }
