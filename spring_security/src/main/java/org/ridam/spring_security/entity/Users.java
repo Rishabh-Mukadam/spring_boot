@@ -22,6 +22,9 @@ public class Users {
     @Column(nullable = false)
     private String password;
 
+
+    private boolean enabled=true;
+
     @ManyToMany
     @JoinTable(
             name = "user_role_map",
