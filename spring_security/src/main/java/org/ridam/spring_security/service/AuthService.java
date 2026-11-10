@@ -21,15 +21,16 @@ import java.util.Optional;
 public class AuthService {
     UserRepository userRepository;
     RoleRepository roleRepository;
-    PasswordEncoder encoder=new BCryptPasswordEncoder();
+    PasswordEncoder encoder;
 
-    public AuthService(UserRepository userRepository,RoleRepository roleRepository){
+    public AuthService(UserRepository userRepository,RoleRepository roleRepository,PasswordEncoder encoder){
         this.userRepository=userRepository;
         this.roleRepository=roleRepository;
+        this.encoder=encoder;
     }
     public UserRegisterResDto register(UserRegisterReqDto userRegisterReqDto) {
         Users user=new Users();
-        user.setUsername("Rishabh");
+        user.setUsername(userRegisterReqDto.getUsername());
 
         Roles role=roleRepository.findByRollName("admin").get();
         String encoded_pwd=encoder.encode(userRegisterReqDto.getPassword());
